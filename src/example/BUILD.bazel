@@ -1,0 +1,21 @@
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary")
+load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl", "scala_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "person_proto",
+    srcs = ["proto/person.proto"],
+)
+
+scala_proto_library(
+    name = "person_scala_proto",
+    visibility = ["//visibility:public"],
+    deps = [":person_proto"],
+)
+
+scala_binary(
+    name = "main",
+    srcs = ["Example.scala"],
+    main_class = "example.Example",
+    deps = [":person_scala_proto"],
+)
