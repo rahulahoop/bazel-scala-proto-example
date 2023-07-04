@@ -20,11 +20,11 @@ http_archive(
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
 
-scala2_version = "2.13.6"
+# scala2_version = "2.13.6"
 
 # scala3_version = "3.3.0"
 
-scala_config(scala2_version)
+scala_config()
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
