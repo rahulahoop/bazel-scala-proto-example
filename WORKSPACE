@@ -11,17 +11,21 @@ http_archive(
 )
 
 # See https://github.com/bazelbuild/rules_scala/releases for up to date version information.
-rules_scala_version = "c711b4d1f0d1cc386c63ef748c9df14d2f3a187e"
-
 http_archive(
     name = "io_bazel_rules_scala",
-    sha256 = "556677f505634da64efc41912d280895e61f5da109d82bdee41cde4120a190a1",
-    strip_prefix = "rules_scala-%s" % rules_scala_version,
-    type = "zip",
-    url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
+    sha256 = "141a3919b37c80a846796f792dcf6ea7cd6e7b7ca4297603ca961cd22750c951",
+    strip_prefix = "rules_scala-5.0.0",
+    url = "https://github.com/bazelbuild/rules_scala/archive/refs/tags/v5.0.0.tar.gz",
 )
 
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
+
+scala2_version = "2.13.6"
+
+# scala3_version = "3.3.0"
+
+scala_config(scala2_version)
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
@@ -38,15 +42,6 @@ load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_
 rules_proto_dependencies()
 
 rules_proto_toolchains()
-
-# Stores Scala version and other configuration
-# 2.12 is a default version, other versions can be use by passing them explicitly:
-# scala_config(scala_version = "2.11.12")
-# Scala 3 requires extras...
-#   3.2 should be supported on master. Please note that Scala artifacts for version (3.2.2) are not defined in
-#   Rules Scala, they need to be provided by your WORKSPACE. You can use external loader like
-#   https://github.com/bazelbuild/rules_jvm_external
-scala_config()
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "rules_scala_setup", "rules_scala_toolchain_deps_repositories")
 
@@ -73,14 +68,6 @@ load("@io_bazel_rules_scala//scala_proto:scala_proto.bzl", "scala_proto_reposito
 scala_proto_repositories()
 
 # WORKSPACE
-load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
-
-scala_config(scala_version = "2.13.6")
-
-load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
-
-scala_register_toolchains()
-
 load("@io_bazel_rules_scala//scala_proto:toolchains.bzl", "scala_proto_register_toolchains")
 
 scala_proto_register_toolchains()
