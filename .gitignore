@@ -1,3 +1,4 @@
 .idea/*
 .ijwb/*
-*.iml
+simple-bazel.iml
+bazel-*/*
