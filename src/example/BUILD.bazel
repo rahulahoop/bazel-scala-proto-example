@@ -9,7 +9,6 @@ proto_library(
 
 scala_proto_library(
     name = "person_scala_proto",
-    visibility = ["//visibility:public"],
     deps = [":person_proto"],
 )
 
